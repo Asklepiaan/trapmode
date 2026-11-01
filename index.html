@@ -3,7 +3,7 @@
 	<head> <!-- meow maak de pagina klaar x3 -->
 		<meta charset="UTF-8"> <!-- meow laat alle tekens toe x3 -->
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- meow pas op elk scherm x3 -->
-		<meta name="description" content="Hello world bounces around a slowly changing rainbow and flashes red and blue. Click for two spins in four seconds, and move your mouse for an orbiting cat."> <!-- meow zeg wat hier te zien is x3 -->
+		<meta name="description" content="Hello world bounces around a slowly changing rainbow and flashes red and blue. Click for two spins in 1⅓ seconds, and move your mouse for an orbiting cat."> <!-- meow zeg wat hier te zien is x3 -->
 		<title>Hello World</title> <!-- meow geef het tabje een naam x3 -->
 		<style> /* meow kleed de pagina aan x3 */
 			* { box-sizing: border-box; } /* meow hou de maat netjes x3 */
@@ -96,7 +96,7 @@
 			<button class="HelloWorld" id="HelloWorld" type="button" aria-describedby="SpinHint">hello world</button> <!-- meow klik de tekst om te draaien x3 -->
 		</div> <!-- meow de stuiterbak is dicht x3 -->
 		<span class="OrbitCat" id="OrbitCat" aria-hidden="true">🐱</span> <!-- meow deze kat jaagt op de muis x3 -->
-		<p class="Hint" id="SpinHint">click to spin &middot; two turns &middot; four seconds</p> <!-- meow geef de poot een tip x3 -->
+		<p class="Hint" id="SpinHint">click to spin &middot; two turns &middot; 1⅓ seconds</p> <!-- meow geef de poot een tip x3 -->
 		<script> // meow leer de tekst en de kat hun pasjes x3
 			const HelloWorld = document.getElementById("HelloWorld"); // meow zoek de tekst x3
 			const Bouncer = document.getElementById("Bouncer"); // meow zoek de stuiterbak x3
@@ -149,7 +149,7 @@
 				SpinAnimation = HelloWorld.animate([ // meow begin een verse draai x3
 					{ transform: "rotate(0deg)" }, // meow begin rechtop x3
 					{ transform: "rotate(720deg)" } // meow draai twee keer rond x3
-				], { duration: 4000, easing: "linear" }); // meow neem vier tellen voor de draai x3
+				], { duration: 4000 / 3, easing: "linear" }); // meow x3 neem een tel en een derde voor twee rondjes en zoef daar gaat de tekst weer miau x3
 			}); // meow de kliktruc is klaar x3
 		</script> <!-- meow de pasjes zijn klaar x3 -->
 	</body> <!-- meow dat was de hele show x3 -->
