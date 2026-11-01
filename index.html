@@ -1,0 +1,90 @@
+<!DOCTYPE html> <!-- meow here comes the page x3 -->
+<html lang="en-GB"> <!-- meow use uk words x3 -->
+	<head> <!-- meow set up the page x3 -->
+		<meta charset="UTF-8"> <!-- meow let all the glyphs in x3 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- meow fit the screen x3 -->
+		<meta name="description" content="Hello world flashes red and blue over a slowly changing rainbow. Click it for two full spins in four seconds."> <!-- meow say what this page does x3 -->
+		<title>Hello World</title> <!-- meow name the tab x3 -->
+		<style> /* meow dress up the page x3 */
+			* { box-sizing: border-box; } /* meow keep the sizes snug x3 */
+			html { min-height: 100%; } /* meow fill the whole page x3 */
+			body { /* meow make room for the show x3 */
+				margin: 0; /* meow tuck in the edges x3 */
+				min-height: 100vh; /* meow fill tall screens too x3 */
+				min-height: 100svh; /* meow fit small phone screens x3 */
+				display: grid; /* meow set up the middle spot x3 */
+				place-items: center; /* meow put the words in the middle x3 */
+				overflow: hidden; /* meow keep the glow in the page x3 */
+				isolation: isolate; /* meow keep the glow at the back x3 */
+				background: #ff997a; /* meow start with a warm hue x3 */
+				font-family: Arial, Helvetica, sans-serif; /* meow use fonts from home x3 */
+			} /* meow the page is set x3 */
+			body::before { /* meow paint the rainbow glow x3 */
+				content: ""; /* meow make a blank patch to paint x3 */
+				position: fixed; /* meow pin the glow to the screen x3 */
+				inset: -25%; /* meow give the glow room to roam x3 */
+				z-index: -1; /* meow sit behind the words x3 */
+				pointer-events: none; /* meow let clicks pass through x3 */
+				background: radial-gradient(ellipse at 20% 25%, #fff2b0 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, #9561ff 0%, transparent 55%), linear-gradient(135deg, #ffb55e, #ff79aa 55%, #c582ff); /* meow blend soft pools of hue x3 */
+				animation: RainbowColours 48s linear infinite; /* meow drift through the rainbow nice and slow x3 */
+			} /* meow the rainbow is ready x3 */
+			.HelloWorld { /* meow style the words we can click x3 */
+				appearance: none; /* meow start with a plain button x3 */
+				border: 0; /* meow lose the box edge x3 */
+				padding: 0.15em 0.08em; /* meow give each glyph some room x3 */
+				background: transparent; /* meow let the rainbow peek through x3 */
+				color: #ff0000; /* meow start the words in red x3 */
+				font: 900 clamp(2rem, 12vw, 11rem) / 1 Arial, Helvetica, sans-serif; /* meow make the words big and bold x3 */
+				letter-spacing: -0.065em; /* meow nest the glyphs close x3 */
+				white-space: nowrap; /* meow keep the words on one line x3 */
+				cursor: pointer; /* meow show the click paw x3 */
+				transform-origin: center; /* meow spin round the middle x3 */
+				-webkit-tap-highlight-color: transparent; /* meow keep taps neat x3 */
+				animation: FlashColours 180ms steps(1, end) infinite; /* meow swap red and blue real fast x3 */
+			} /* meow the words are dressed x3 */
+			.HelloWorld:focus-visible { /* meow help paws that use keys x3 */
+				outline: 2px solid #181429; /* meow show where the keys will click x3 */
+				outline-offset: 0.12em; /* meow keep the ring clear of the words x3 */
+				border-radius: 0.08em; /* meow soften the ring a bit x3 */
+			} /* meow the key ring is set x3 */
+			.Hint { /* meow style the small click tip x3 */
+				position: fixed; /* meow pin the tip near the floor x3 */
+				bottom: max(2rem, env(safe-area-inset-bottom)); /* meow dodge the phone edge x3 */
+				margin: 0; /* meow skip spare space x3 */
+				padding: 0.75rem 1.1rem; /* meow give the tip a soft bed x3 */
+				border: 1px solid #ffffff66; /* meow draw a soft glass edge x3 */
+				border-radius: 999px; /* meow round the tip like a bean x3 */
+				background: #ffffff33; /* meow lay down a thin veil x3 */
+				color: #241b37; /* meow keep the tip dark and clear x3 */
+				font-size: 0.75rem; /* meow keep the tip small x3 */
+				letter-spacing: 0.12em; /* meow give the tip some air x3 */
+				text-align: center; /* meow put the tip in the middle x3 */
+				text-transform: uppercase; /* meow make the tip stand tall x3 */
+				pointer-events: none; /* meow let paws reach the words x3 */
+			} /* meow the tip is set x3 */
+			@keyframes FlashColours { /* meow set the red and blue beat x3 */
+				0%, 100% { color: #ff0000; } /* meow glow bright red x3 */
+				50% { color: #0000ff; } /* meow glow bright blue x3 */
+			} /* meow the flash beat is done x3 */
+			@keyframes RainbowColours { /* meow set the slow rainbow loop x3 */
+				from { filter: hue-rotate(0deg); } /* meow start with the first hue x3 */
+				to { filter: hue-rotate(360deg); } /* meow drift round all the hues x3 */
+			} /* meow the rainbow loop is done x3 */
+		</style> <!-- meow all dressed up x3 -->
+	</head> <!-- meow the setup is done x3 -->
+	<body> <!-- meow bring on the show x3 -->
+		<button class="HelloWorld" id="HelloWorld" type="button" aria-describedby="SpinHint">hello world</button> <!-- meow click these words to spin x3 -->
+		<p class="Hint" id="SpinHint">click to spin &middot; two turns &middot; four seconds</p> <!-- meow give paws a small tip x3 -->
+		<script> // meow teach the words to spin x3
+			const HelloWorld = document.getElementById("HelloWorld"); // meow find the words x3
+			let SpinAnimation; // meow keep track of the spin x3
+			HelloWorld.addEventListener("click", () => { // meow wake up on each click x3
+				SpinAnimation?.cancel(); // meow clear the last spin x3
+				SpinAnimation = HelloWorld.animate([ // meow start a fresh spin x3
+					{ transform: "rotate(0deg)" }, // meow start facing up x3
+					{ transform: "rotate(720deg)" } // meow go round twice x3
+				], { duration: 4000, easing: "linear" }); // meow take four seconds for both turns x3
+			}); // meow the click trick is set x3
+		</script> <!-- meow the spin spell is done x3 -->
+	</body> <!-- meow that is the whole show x3 -->
+</html> <!-- meow see you next click x3 -->
