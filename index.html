@@ -1,90 +1,156 @@
-<!DOCTYPE html> <!-- meow here comes the page x3 -->
-<html lang="en-GB"> <!-- meow use uk words x3 -->
-	<head> <!-- meow set up the page x3 -->
-		<meta charset="UTF-8"> <!-- meow let all the glyphs in x3 -->
-		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- meow fit the screen x3 -->
-		<meta name="description" content="Hello world flashes red and blue over a slowly changing rainbow. Click it for two full spins in four seconds."> <!-- meow say what this page does x3 -->
-		<title>Hello World</title> <!-- meow name the tab x3 -->
-		<style> /* meow dress up the page x3 */
-			* { box-sizing: border-box; } /* meow keep the sizes snug x3 */
-			html { min-height: 100%; } /* meow fill the whole page x3 */
-			body { /* meow make room for the show x3 */
-				margin: 0; /* meow tuck in the edges x3 */
-				min-height: 100vh; /* meow fill tall screens too x3 */
-				min-height: 100svh; /* meow fit small phone screens x3 */
-				display: grid; /* meow set up the middle spot x3 */
-				place-items: center; /* meow put the words in the middle x3 */
-				overflow: hidden; /* meow keep the glow in the page x3 */
-				isolation: isolate; /* meow keep the glow at the back x3 */
-				background: #ff997a; /* meow start with a warm hue x3 */
-				font-family: Arial, Helvetica, sans-serif; /* meow use fonts from home x3 */
-			} /* meow the page is set x3 */
-			body::before { /* meow paint the rainbow glow x3 */
-				content: ""; /* meow make a blank patch to paint x3 */
-				position: fixed; /* meow pin the glow to the screen x3 */
-				inset: -25%; /* meow give the glow room to roam x3 */
-				z-index: -1; /* meow sit behind the words x3 */
-				pointer-events: none; /* meow let clicks pass through x3 */
-				background: radial-gradient(ellipse at 20% 25%, #fff2b0 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, #9561ff 0%, transparent 55%), linear-gradient(135deg, #ffb55e, #ff79aa 55%, #c582ff); /* meow blend soft pools of hue x3 */
-				animation: RainbowColours 48s linear infinite; /* meow drift through the rainbow nice and slow x3 */
-			} /* meow the rainbow is ready x3 */
-			.HelloWorld { /* meow style the words we can click x3 */
-				appearance: none; /* meow start with a plain button x3 */
-				border: 0; /* meow lose the box edge x3 */
-				padding: 0.15em 0.08em; /* meow give each glyph some room x3 */
-				background: transparent; /* meow let the rainbow peek through x3 */
-				color: #ff0000; /* meow start the words in red x3 */
-				font: 900 clamp(2rem, 12vw, 11rem) / 1 Arial, Helvetica, sans-serif; /* meow make the words big and bold x3 */
-				letter-spacing: -0.065em; /* meow nest the glyphs close x3 */
-				white-space: nowrap; /* meow keep the words on one line x3 */
-				cursor: pointer; /* meow show the click paw x3 */
-				transform-origin: center; /* meow spin round the middle x3 */
-				-webkit-tap-highlight-color: transparent; /* meow keep taps neat x3 */
-				animation: FlashColours 180ms steps(1, end) infinite; /* meow swap red and blue real fast x3 */
-			} /* meow the words are dressed x3 */
-			.HelloWorld:focus-visible { /* meow help paws that use keys x3 */
-				outline: 2px solid #181429; /* meow show where the keys will click x3 */
-				outline-offset: 0.12em; /* meow keep the ring clear of the words x3 */
-				border-radius: 0.08em; /* meow soften the ring a bit x3 */
-			} /* meow the key ring is set x3 */
-			.Hint { /* meow style the small click tip x3 */
-				position: fixed; /* meow pin the tip near the floor x3 */
-				bottom: max(2rem, env(safe-area-inset-bottom)); /* meow dodge the phone edge x3 */
-				margin: 0; /* meow skip spare space x3 */
-				padding: 0.75rem 1.1rem; /* meow give the tip a soft bed x3 */
-				border: 1px solid #ffffff66; /* meow draw a soft glass edge x3 */
-				border-radius: 999px; /* meow round the tip like a bean x3 */
-				background: #ffffff33; /* meow lay down a thin veil x3 */
-				color: #241b37; /* meow keep the tip dark and clear x3 */
-				font-size: 0.75rem; /* meow keep the tip small x3 */
-				letter-spacing: 0.12em; /* meow give the tip some air x3 */
-				text-align: center; /* meow put the tip in the middle x3 */
-				text-transform: uppercase; /* meow make the tip stand tall x3 */
-				pointer-events: none; /* meow let paws reach the words x3 */
-			} /* meow the tip is set x3 */
-			@keyframes FlashColours { /* meow set the red and blue beat x3 */
-				0%, 100% { color: #ff0000; } /* meow glow bright red x3 */
-				50% { color: #0000ff; } /* meow glow bright blue x3 */
-			} /* meow the flash beat is done x3 */
-			@keyframes RainbowColours { /* meow set the slow rainbow loop x3 */
-				from { filter: hue-rotate(0deg); } /* meow start with the first hue x3 */
-				to { filter: hue-rotate(360deg); } /* meow drift round all the hues x3 */
-			} /* meow the rainbow loop is done x3 */
-		</style> <!-- meow all dressed up x3 -->
-	</head> <!-- meow the setup is done x3 -->
-	<body> <!-- meow bring on the show x3 -->
-		<button class="HelloWorld" id="HelloWorld" type="button" aria-describedby="SpinHint">hello world</button> <!-- meow click these words to spin x3 -->
-		<p class="Hint" id="SpinHint">click to spin &middot; two turns &middot; four seconds</p> <!-- meow give paws a small tip x3 -->
-		<script> // meow teach the words to spin x3
-			const HelloWorld = document.getElementById("HelloWorld"); // meow find the words x3
-			let SpinAnimation; // meow keep track of the spin x3
-			HelloWorld.addEventListener("click", () => { // meow wake up on each click x3
-				SpinAnimation?.cancel(); // meow clear the last spin x3
-				SpinAnimation = HelloWorld.animate([ // meow start a fresh spin x3
-					{ transform: "rotate(0deg)" }, // meow start facing up x3
-					{ transform: "rotate(720deg)" } // meow go round twice x3
-				], { duration: 4000, easing: "linear" }); // meow take four seconds for both turns x3
-			}); // meow the click trick is set x3
-		</script> <!-- meow the spin spell is done x3 -->
-	</body> <!-- meow that is the whole show x3 -->
-</html> <!-- meow see you next click x3 -->
+<!DOCTYPE html> <!-- meow hier komt de pagina x3 -->
+<html lang="en-GB"> <!-- meow de tekst is engels x3 -->
+	<head> <!-- meow maak de pagina klaar x3 -->
+		<meta charset="UTF-8"> <!-- meow laat alle tekens toe x3 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- meow pas op elk scherm x3 -->
+		<meta name="description" content="Hello world bounces around a slowly changing rainbow and flashes red and blue. Click for two spins in four seconds, and move your mouse for an orbiting cat."> <!-- meow zeg wat hier te zien is x3 -->
+		<title>Hello World</title> <!-- meow geef het tabje een naam x3 -->
+		<style> /* meow kleed de pagina aan x3 */
+			* { box-sizing: border-box; } /* meow hou de maat netjes x3 */
+			html { min-height: 100%; } /* meow vul de hele pagina x3 */
+			body { /* meow maak plek voor de pret x3 */
+				margin: 0; /* meow haal de rand weg x3 */
+				min-height: 100vh; /* meow vul het hoge scherm x3 */
+				min-height: 100svh; /* meow pas ook op een klein scherm x3 */
+				display: grid; /* meow maak een vak voor de tekst x3 */
+				place-items: center; /* meow zet de tip in het midden x3 */
+				overflow: hidden; /* meow hou de gloed binnen x3 */
+				isolation: isolate; /* meow hou de gloed achteraan x3 */
+				background: #ff997a; /* meow begin met een warme kleur x3 */
+				font-family: Arial, Helvetica, sans-serif; /* meow pak letters die er al zijn x3 */
+			} /* meow de pagina is klaar x3 */
+			body::before { /* meow verf de gloed x3 */
+				content: ""; /* meow maak een leeg vlak x3 */
+				position: fixed; /* meow zet de gloed vast x3 */
+				inset: -25%; /* meow geef de gloed veel plek x3 */
+				z-index: -1; /* meow blijf achter de tekst x3 */
+				pointer-events: none; /* meow laat de klik door x3 */
+				background: radial-gradient(ellipse at 20% 25%, #fff2b0 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, #9561ff 0%, transparent 55%), linear-gradient(135deg, #ffb55e, #ff79aa 55%, #c582ff); /* meow meng zachte kleuren x3 */
+				animation: RainbowColours 48s linear infinite; /* meow wissel de kleuren heel traag x3 */
+			} /* meow de gloed is klaar x3 */
+			.Bouncer { /* meow geef de tekst een stuiterbak x3 */
+				position: fixed; /* meow stuiter langs het scherm x3 */
+				top: 0; /* meow meet vanaf boven x3 */
+				left: 0; /* meow meet vanaf links x3 */
+				width: max-content; /* meow pas de bak om de tekst x3 */
+				line-height: 0; /* meow laat geen loze ruimte onder x3 */
+				will-change: transform; /* meow maak het schuiven soepel x3 */
+			} /* meow de stuiterbak is klaar x3 */
+			.HelloWorld { /* meow kleed de kliktekst aan x3 */
+				appearance: none; /* meow maak de knop kaal x3 */
+				border: 0; /* meow haal de rand weg x3 */
+				padding: 0.15em 0.08em; /* meow geef de letters wat plek x3 */
+				background: transparent; /* meow laat de gloed zien x3 */
+				color: #ff0000; /* meow begin met rood x3 */
+				font: 900 min(12vw, 60vh, 11rem) / 1 Arial, Helvetica, sans-serif; /* meow maak de tekst dik en pas op kleine schermen x3 */
+				letter-spacing: -0.065em; /* meow zet de letters dicht bijeen x3 */
+				white-space: nowrap; /* meow hou de tekst op een regel x3 */
+				cursor: pointer; /* meow toon de klikpoot x3 */
+				transform-origin: center; /* meow draai rond het midden x3 */
+				-webkit-tap-highlight-color: transparent; /* meow hou de tik netjes x3 */
+				animation: FlashColours 180ms steps(1, end) infinite; /* meow wissel rood en blauw heel snel x3 */
+			} /* meow de tekst is klaar x3 */
+			.HelloWorld:focus-visible { /* meow help de poot op de toetsen x3 */
+				outline: 2px solid #181429; /* meow toon waar de klik komt x3 */
+				outline-offset: 0.12em; /* meow hou de ring van de tekst af x3 */
+				border-radius: 0.08em; /* meow maak de ring wat rond x3 */
+			} /* meow de toetsenring is klaar x3 */
+			.OrbitCat { /* meow geef de kat een baan x3 */
+				position: fixed; /* meow vlieg rond de muis x3 */
+				top: 0; /* meow meet vanaf boven x3 */
+				left: 0; /* meow meet vanaf links x3 */
+				z-index: 2; /* meow vlieg voor de tekst x3 */
+				font-size: 2rem; /* meow maak de kat goed te zien x3 */
+				line-height: 1; /* meow hou de kat zijn vak klein x3 */
+				pointer-events: none; /* meow vang geen klik met de kat x3 */
+				user-select: none; /* meow laat de kat niet slepen x3 */
+				will-change: transform; /* meow vlieg lekker soepel x3 */
+			} /* meow de kat is klaar x3 */
+			.Hint { /* meow kleed de kleine tip aan x3 */
+				position: fixed; /* meow zet de tip vast x3 */
+				bottom: max(2rem, env(safe-area-inset-bottom)); /* meow blijf van de schermrand af x3 */
+				margin: 0; /* meow haal loze ruimte weg x3 */
+				padding: 0.75rem 1.1rem; /* meow geef de tip een zacht bed x3 */
+				border: 1px solid #ffffff66; /* meow maak een zacht randje x3 */
+				border-radius: 999px; /* meow maak de tip rond x3 */
+				background: #ffffff33; /* meow leg een dun laagje neer x3 */
+				color: #241b37; /* meow maak de tip goed leesbaar x3 */
+				font-size: 0.75rem; /* meow hou de tip klein x3 */
+				letter-spacing: 0.12em; /* meow geef de letters wat lucht x3 */
+				text-align: center; /* meow zet de tekst in het midden x3 */
+				text-transform: uppercase; /* meow maak de letters groot x3 */
+				pointer-events: none; /* meow laat de klik naar de tekst x3 */
+			} /* meow de tip is klaar x3 */
+			@keyframes FlashColours { /* meow maak de kleurpasjes x3 */
+				0%, 100% { color: #ff0000; } /* meow straal rood x3 */
+				50% { color: #0000ff; } /* meow straal blauw x3 */
+			} /* meow de kleurpasjes zijn klaar x3 */
+			@keyframes RainbowColours { /* meow maak de trage kleurlus x3 */
+				from { filter: hue-rotate(0deg); } /* meow begin bij de eerste kleur x3 */
+				to { filter: hue-rotate(360deg); } /* meow ga langs alle kleuren x3 */
+			} /* meow de kleurlus is klaar x3 */
+		</style> <!-- meow de kleren zijn klaar x3 -->
+	</head> <!-- meow alles staat klaar x3 -->
+	<body> <!-- meow laat de pret maar komen x3 -->
+		<div class="Bouncer" id="Bouncer"> <!-- meow deze bak neemt de tekst mee x3 -->
+			<button class="HelloWorld" id="HelloWorld" type="button" aria-describedby="SpinHint">hello world</button> <!-- meow klik de tekst om te draaien x3 -->
+		</div> <!-- meow de stuiterbak is dicht x3 -->
+		<span class="OrbitCat" id="OrbitCat" aria-hidden="true">🐱</span> <!-- meow deze kat jaagt op de muis x3 -->
+		<p class="Hint" id="SpinHint">click to spin &middot; two turns &middot; four seconds</p> <!-- meow geef de poot een tip x3 -->
+		<script> // meow leer de tekst en de kat hun pasjes x3
+			const HelloWorld = document.getElementById("HelloWorld"); // meow zoek de tekst x3
+			const Bouncer = document.getElementById("Bouncer"); // meow zoek de stuiterbak x3
+			const OrbitCat = document.getElementById("OrbitCat"); // meow zoek de kat x3
+			const Position = { X: 0, Y: 0 }; // meow hou bij waar de tekst is x3
+			const Velocity = { X: 180, Y: 130 }; // meow kies de vaart per kant x3
+			const Bounds = { X: 0, Y: 0 }; // meow hou bij waar de rand is x3
+			const Pointer = { X: window.innerWidth / 2, Y: window.innerHeight / 2 }; // meow begin met de muis in het midden x3
+			let PreviousTime; // meow hou de vorige tel bij x3
+			let SpinAnimation; // meow hou de draai bij x3
+			function UpdateBounds() { // meow meet de plek voor het stuiteren x3
+				Bounds.X = Math.max(0, window.innerWidth - Bouncer.offsetWidth); // meow zoek de rechterrand x3
+				Bounds.Y = Math.max(0, window.innerHeight - Bouncer.offsetHeight); // meow zoek de onderrand x3
+				Position.X = Math.min(Position.X, Bounds.X); // meow hou de tekst binnen de breedte x3
+				Position.Y = Math.min(Position.Y, Bounds.Y); // meow hou de tekst binnen de hoogte x3
+				Pointer.X = Math.min(Pointer.X, window.innerWidth); // meow hou de muis op het scherm x3
+				Pointer.Y = Math.min(Pointer.Y, window.innerHeight); // meow hou de muis boven de vloer x3
+			} // meow de randen zijn klaar x3
+			UpdateBounds(); // meow meet het scherm voor de start x3
+			Position.X = Bounds.X / 2; // meow start de tekst middenin de breedte x3
+			Position.Y = Bounds.Y / 2; // meow start de tekst middenin de hoogte x3
+			window.addEventListener("resize", UpdateBounds); // meow meet weer als het scherm groeit x3
+			window.addEventListener("pointermove", (Event) => { // meow volg de muis zijn pasjes x3
+				Pointer.X = Event.clientX; // meow pak de plek van links x3
+				Pointer.Y = Event.clientY; // meow pak de plek van boven x3
+			}); // meow de muis geeft de weg aan x3
+			function AnimateScene(Time) { // meow zet elk beeld in gang x3
+				const Delta = PreviousTime === undefined ? 0 : Math.min((Time - PreviousTime) / 1000, 0.05); // meow hou de stap klein na een pauze x3
+				PreviousTime = Time; // meow onthou deze tel x3
+				for (const Axis of ["X", "Y"]) { // meow loop langs beide kanten x3
+					Position[Axis] += Velocity[Axis] * Delta; // meow schuif de tekst een stukje x3
+					if (Position[Axis] <= 0) { // meow raak de rand aan het begin x3
+						Position[Axis] = 0; // meow zet de tekst tegen de rand x3
+						Velocity[Axis] = Math.abs(Velocity[Axis]); // meow stuiter terug naar binnen x3
+					} else if (Position[Axis] >= Bounds[Axis]) { // meow raak de rand aan het eind x3
+						Position[Axis] = Bounds[Axis]; // meow blijf netjes op het scherm x3
+						Velocity[Axis] = -Math.abs(Velocity[Axis]); // meow vlieg de andere kant op x3
+					} // meow de botsing is klaar x3
+				} // meow beide kanten zijn klaar x3
+				Bouncer.style.transform = `translate3d(${Position.X}px, ${Position.Y}px, 0)`; // meow neem de hele tekst mee x3
+				const Angle = Time / 1000 * Math.PI * 6; // meow laat de kat drie rondjes per tel doen x3
+				const CatX = Pointer.X + Math.cos(Angle) * 42; // meow draai links en rechts om de muis x3
+				const CatY = Pointer.Y + Math.sin(Angle) * 42; // meow draai boven en onder de muis x3
+				OrbitCat.style.transform = `translate3d(${CatX}px, ${CatY}px, 0) translate(-50%, -50%)`; // meow vlieg met de kat op zijn plek x3
+				requestAnimationFrame(AnimateScene); // meow maak het volgende beeld klaar x3
+			} // meow dit beeld is klaar x3
+			requestAnimationFrame(AnimateScene); // meow start de stuiterpret en de kat x3
+			HelloWorld.addEventListener("click", () => { // meow draai bij elke klik x3
+				SpinAnimation?.cancel(); // meow stop de vorige draai x3
+				SpinAnimation = HelloWorld.animate([ // meow begin een verse draai x3
+					{ transform: "rotate(0deg)" }, // meow begin rechtop x3
+					{ transform: "rotate(720deg)" } // meow draai twee keer rond x3
+				], { duration: 4000, easing: "linear" }); // meow neem vier tellen voor de draai x3
+			}); // meow de kliktruc is klaar x3
+		</script> <!-- meow de pasjes zijn klaar x3 -->
+	</body> <!-- meow dat was de hele show x3 -->
+</html> <!-- meow tot de volgende klik x3 -->
